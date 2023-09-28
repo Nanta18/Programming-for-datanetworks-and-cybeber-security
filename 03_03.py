@@ -1,15 +1,24 @@
-def read_fruits():
-    with open("fruits.csv") as new_file:
+import json
+
+def csv_to_json():
+    input_csv = "fruits.csv" #This file will be converted to json
+    fruit_prices = create_dict(input_csv) #Creates a python dictionary from csv
+    write_json(fruit_prices) #Writes a json-file onto the disk
+
+def write_json(fruit_prices):
+    with open("fruit_prices.json", "w") as new_file: #Creates a new file in writing mode
+        json.dump(fruit_prices, new_file, indent = 4) #Writes into the new file
+   
+def create_dict(input_csv):
+    with open(input_csv) as new_file:
         fruit_dict = {}
         for line in new_file:
             line = line.replace("\n", "") #Removes new-line character
-            parts = line.split(",") #Values are separated with , so values can be split easilly
-            fruit_name = parts[0] #First value is the name
-            value = parts[1:] #Seccond line is a value
-            fruit_dict[fruit_name] = value #Adds a new entry to the dictionary with a numerical value
+            parts = line.split(",") #prices are separated with , so prices can be split easilly
+            fruit_name = parts[0] #First price is the name
+            price = parts[1:] #Seccond line is a price
+            fruit_dict[fruit_name] = price #Adds a new key to the dictionary with price as the value
+    return fruit_dict #Returns the dictionary created
 
-        print("--------------------------------------------------------------------")
-        print(fruit_dict) 
-        print("--------------------------------------------------------------------")
 
-read_fruits() #Calls the function
+csv_to_json()
