@@ -18,7 +18,7 @@ for item in users_data:
         for task_item in todos_data:
             get_id_todos = task_item.get("userId")
             get_completed = task_item.get("completed")
-            # Checks if tasks are done and and also match the user whose tasks we are counting atm
+            # Checks if tasks are done and match the user whose tasks we are counting atm
             # setdefault creates the key if it doesn't exist, if it does +1 is added
             if get_completed == True and get_id_users == get_id_todos:
                 user_tasks.setdefault(get_name, 0)
