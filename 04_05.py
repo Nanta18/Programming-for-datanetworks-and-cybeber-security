@@ -4,7 +4,7 @@ import re
 # now it only catches TIE_1 and TIE_2 alongside with surfacemoisture1 and surfacemoisture2
 # KASTEPISTE_ERO_TIE for example is not caught
 # short format name of TIE_1 would be TIE1 that is not caught as a duplicate
-pattern = r"(TIE_\d)|(surfacemoisture\d)"
+pattern = r"TIE|surfacemoisture"
 
 fh = open('weather-data.json', 'r')
 
