@@ -1,5 +1,9 @@
+#Always different but real names
+
 import random
+import time
 import psycopg2
+from datetime import datetime, timedelta
 
 # All the details needed to acces the database
 db_details = {
@@ -18,15 +22,12 @@ CREATE TABLE homework (
     id SERIAL PRIMARY KEY,
     "last name" VARCHAR(255),
     "year of birth" INTEGER,
-    "time of purchase" INTEGER
+    "time of purchase" TIMESTAMP
 );
 """
 # SQL query to insert values into the table in a SQL injection safe way
 insert_data_sql = "INSERT INTO homework (\"last name\", \"year of birth\", \"time of purchase\") VALUES (%s, %s, %s)"
 
-
-def generate_random_name():
-    return random.choice(last_names)
 
 # List of over 300 random names
 last_names = [
@@ -69,18 +70,38 @@ last_names = [
     "Schmidt", "Sparks", "Blackwell", "Roberson"
 ]
 
+def generate_random_date(seed):
+    random.seed(seed)
+
+    start_date = datetime(2020, 1, 1)
+    end_date = datetime(2022, 12, 31)
+
+    random_date = start_date + timedelta(days=random.randint(0, (end_date - start_date).days))
+    
+    # Generate random hours, minutes, and seconds
+    random_hours = random.randint(0, 23)
+    random_minutes = random.randint(0, 59)
+    random_seconds = random.randint(0, 59)
+    
+    random_date = random_date.replace(hour=random_hours, minute=random_minutes, second=random_seconds)
+    
+    return random_date
+
+def generate_random_name():
+    return random.choice(last_names)
 
 
 def insert_random_data(cursor):
     for x in range(10000):
         persistent_randomn_num_gen = random.Random(x)
-        random_number = persistent_randomn_num_gen.randint(1, 200000)
+        current_time = time.time()
+        random_num_gen = random.Random(current_time)
 
-        number_variations1 = random_number * 45
-        number_variations2 = random_number - 45
-        random_name = generate_random_name() # Returns random name
+        random_year = persistent_randomn_num_gen.randint(1945, 2023)
+        random_name = generate_random_name()
+        random_date = generate_random_date(random_num_gen)
 
-        cursor.execute(insert_data_sql, (random_name, number_variations1, number_variations2))
+        cursor.execute(insert_data_sql, (random_name, random_year, random_date))
 
 def retrieve_data():
     # Connect to the database and create a cursor

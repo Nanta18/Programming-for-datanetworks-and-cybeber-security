@@ -1,5 +1,8 @@
+# Always the same but names are random
+
 import random
 import psycopg2
+from datetime import datetime, timedelta
 
 # All the details needed to acces the database
 db_details = {
@@ -18,7 +21,7 @@ CREATE TABLE homework (
     id SERIAL PRIMARY KEY,
     "last name" VARCHAR(255),
     "year of birth" INTEGER,
-    "time of purchase" INTEGER
+    "time of purchase" TIMESTAMP
 );
 """
 # SQL query to insert values into the table in a SQL injection safe way
@@ -33,16 +36,34 @@ def generate_random_name(number):
             name += chr(ord('A') + random_number_for_name - 1)
     return name
 
+def generate_random_date(seed):
+    random.seed(seed)
+
+    start_date = datetime(2020, 1, 1)
+    end_date = datetime(2022, 12, 31)
+
+    random_date = start_date + timedelta(days=random.randint(0, (end_date - start_date).days))
+    
+    # Generate random hours, minutes, and seconds
+    random_hours = random.randint(0, 23)
+    random_minutes = random.randint(0, 59)
+    random_seconds = random.randint(0, 59)
+    
+    random_date = random_date.replace(hour=random_hours, minute=random_minutes, second=random_seconds)
+    
+    return random_date
+
+
 def insert_random_data(cursor):
     for x in range(10000):
         persistent_randomn_num_gen = random.Random(x)
         random_number = persistent_randomn_num_gen.randint(1, 200000)
 
-        number_variations1 = random_number * 45
-        number_variations2 = random_number - 45
+        random_year = persistent_randomn_num_gen.randint(1945, 2023)
         random_name = generate_random_name(persistent_randomn_num_gen)
+        random_date = generate_random_date(random_number)
 
-        cursor.execute(insert_data_sql, (random_name, number_variations1, number_variations2))
+        cursor.execute(insert_data_sql, (random_name, random_year, random_date))
 
 def retrieve_data():
     # Connect to the database and create a cursor
