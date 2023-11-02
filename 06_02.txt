@@ -1,0 +1,24 @@
+2)
+a)  sudo -u dncs-db psql
+b) \c
+c) I used:
+
+CREATE TABLE purchases (id SERIAL PRIMARY KEY, "last name" VARCHAR(255), "year of birth" INTEGER, "time of purchase" TIMESTAMP);
+id was the primary key
+
+d)
+Because I clearly can’t read I did not in fact do it by hand but used 2h to troubleshoot automatically adding it from file.
+
+\copy purchases(id, "last name", "year of birth", "time of purchase") FROM 'data.txt' DELIMITER ';' CSV HEADER
+This is how I got it to work.
+
+e)
+SELECT *
+FROM purchases
+;
+
+f)
+SELECT *
+FROM purchases
+ORDER BY "time of purchase" DESC 
+LIMIT 3;

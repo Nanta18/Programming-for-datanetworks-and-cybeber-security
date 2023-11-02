@@ -1,0 +1,8 @@
+1)
+ -c lets you to pass SQL command to psql
+pg_hba.conf controls client access
+host    DATABASE_NAME    USER_NAME    IP_ADDRESS    AUTHENTICATION_METHOD can be use to allow users to connect from specific address
+
+
+
+
