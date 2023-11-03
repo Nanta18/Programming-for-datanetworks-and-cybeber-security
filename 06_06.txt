@@ -1,0 +1,4 @@
+SELECT "last name", "time of purchase"
+FROM homework
+ORDER BY "time of purchase" DESC
+LIMIT 20;

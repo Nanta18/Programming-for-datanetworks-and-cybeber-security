@@ -70,8 +70,8 @@ last_names = [
     "Schmidt", "Sparks", "Blackwell", "Roberson"
 ]
 
-def generate_random_date(seed):
-    random.seed(seed)
+def generate_random_date():
+    random.seed()
 
     start_date = datetime(2020, 1, 1)
     end_date = datetime(2022, 12, 31)
@@ -92,14 +92,13 @@ def generate_random_name():
 
 
 def insert_random_data(cursor):
-    for x in range(10000):
-        persistent_randomn_num_gen = random.Random(x)
+    for x in range(100):
         current_time = time.time()
-        random_num_gen = random.Random(current_time)
-
-        random_year = persistent_randomn_num_gen.randint(1945, 2023)
+        random_num_gen = random.Random(current_time*382189)
+        
+        random_year = random_num_gen.randint(1945, 2023)
         random_name = generate_random_name()
-        random_date = generate_random_date(random_num_gen)
+        random_date = generate_random_date()
 
         cursor.execute(insert_data_sql, (random_name, random_year, random_date))
 
