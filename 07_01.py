@@ -1,6 +1,5 @@
 import requests
 import urllib.parse
-import json
 
 api_key = "uvAzasIo6oVxHHwgrFH4HHg93gjZKK4U"
 url = "http://www.mapquestapi.com/directions/v2/route"
