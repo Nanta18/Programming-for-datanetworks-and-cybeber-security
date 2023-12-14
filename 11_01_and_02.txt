@@ -1,0 +1,9 @@
+3:
+Osquery can be used to monitor multiple systems or whole infrastructure at once. Changes to systems can easily be viewed and compared to old versions. Unsecure configs across systems are easier to find.
+
+Osqueryi is SQL query console used to go through the os on single system and Osqueryd is the same across multiple machines and the whole infrastructure on a larger scale. Osqueryd allows for scheduled queries to collect logs.
+I might be good for lets say personal machine and d for homelab with multiple clients and servers.
+
+4:
+Osquery makes finding lots of info at once quite easy if youy know SQL but I ran into a problem of too little screenspace, for example  trying to run SELECT * FROM processes;
+was completely unreadeable since it couldn't fit on my screen. I like how versitale the tool is and would like to use it again.

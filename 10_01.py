@@ -1,54 +1,54 @@
 import os
 import random
 
+folder_path = "C:\\Users\\nanta\\Downloads\\testprogram"
 
-#WIP
-#TODO
-#Create 5-10 empty files with randomized names
-#Associate an index to every file, either list or dictionary
-#Write a string to every file: This file's index is: <index>
-#Read the contents and write it to the screen
-#remove the files
+# Defines amout of files and returns the dictionary of filenames and indexes 
+def choose_amount_of_files():
+    list_of_files = {} # Creates an empty dictionary
+    # Generates a random number between 5 and 10
+    amount_of_files = random.randint(5, 10)
+    print("Files to be generated:", amount_of_files)
 
+    # Generates names of all the files
+    for i in range(1, amount_of_files + 1):
+        file_name = generate_random_name()
+        list_of_files[file_name] = i
 
-def choose_amount_of_files ():
-    list_of_names = []
-    #Generates a random number between 5 and 10
-    amount_of_files = random.randint(5,10)
-    print("Files to be generated:" , amount_of_files)
+    #Returns a dictionary containing filenames and indexes
+    return list_of_files
 
+# Generates random strings with only captialized leters
+def generate_random_name(): 
+    name = ""
+    for _ in range(5):
+        random_number_for_name = random.randint(1, 26) # Gives random number to be used in choosing a character
+        name += chr(ord('A') + random_number_for_name - 1)
+    return name
 
-    
-    #for x in range(amount_of_files):
-     #   list_of_names += [str(generate_random_string)]
-        #print(list_of_names[x])
-    
+# Creates the files, but that should be quite clear from the name of the function
+def create_files(files_list, folder_path):
 
-    #put them into a dictionary here
+    for file_name, index in files_list.items():
+        file_path = os.path.join(folder_path, file_name) # Joins the filepath and the filename into one path
+        with open(file_path, 'w') as file: # Opens the file with write permissions
+            file.write(f"This file's index is: {index}") # Writes into the file
 
-    #return the dictionary here
-    return 0
+# Prints one by one contents of the all created files
+def read_and_print_contents(files_list, folder_path): 
+    for file_name, index in files_list.items():
+        file_path = os.path.join(folder_path, file_name) # Joins the filepath and the filename into one path
+        with open(file_path, 'r') as file: # Opens the file with read permissions
+            contents = file.read()
+            print(f"File {file_name} contents: {contents}")
 
+# Deletes all the files we just spent sweat, blood and tears creating
+def remove_files(files_list, folder_path):
+    for file_name in files_list.keys():
+        file_path = os.path.join(folder_path, file_name) # Joins the filepath and the filename into one path
+        os.remove(file_path) # Kills the poor file
 
-
-#file_details = choose_files()
-
-'''
-def check_for_file(): #If file exists, does nothing if not creates an empty file
-    if os.path.isfile("diary.txt"): 
-        pass
-    else:
-        with open('diary.txt', 'w') as f:
-            pass
-            
-def write_new_entries(): 
-    with open('diary.txt', 'r+') as f: #opens  the diary as f and with read and append permissions
-        print("Earlier entries:")
-        data = f.read() #reads the file into a string
-        print(data)
-        new_entry = input("\n" + "New diary entry:") #takes user input
-        f.writelines("\n" + new_entry) #writes user input into a file
-        print("\n" + "Diary saved" + "\n")
-'''
-
-choose_amount_of_files()
+files_list = choose_amount_of_files()
+create_files(files_list, folder_path)
+read_and_print_contents(files_list, folder_path)
+remove_files(files_list, folder_path)
